@@ -5,7 +5,9 @@ try:
     import polyinterface
 except ImportError:
     import pgc_interface as polyinterface
+
     CLOUD = True
+
 import sys
 import time
 import requests
@@ -156,14 +158,16 @@ class Controller(polyinterface.Controller):
             self.password = self.polyConfig['customParams']['password']
         else:
             self.password = default_password
-            LOGGER.error('check_params: password not defined in customParams, please add it.  Using {}'.format(self.password))
+            LOGGER.error(
+                'check_params: password not defined in customParams, please add it.  Using {}'.format(self.password))
             st = False
 
         if 'traccar_host' in self.polyConfig['customParams']:
             self.traccar_host = self.polyConfig['customParams']['traccar_host']
         else:
             self.traccar_host = default_traccar_host
-            LOGGER.error('check_params: Traccar Host not defined in customParams, please add it.  Using {}'.format(self.password))
+            LOGGER.error('check_params: Traccar Host not defined in customParams, please add it.  Using {}'.format(
+                self.password))
             st = False
 
         if 'traccar_port' in self.polyConfig['customParams']:
@@ -288,12 +292,12 @@ class TraccarNode(polyinterface.Node):
         {'driver': 'BATLVL', 'value': 0, 'uom': 51},
         {'driver': 'SPEED', 'value': 0, 'uom': 48},
         {'driver': 'GV1', 'value': 0, 'uom': 2}
-        ]
+    ]
 
     id = 'TRACCAR'
     commands = {
-                    # 'DON': setOn, 'DOF': setOff
-                }
+        # 'DON': setOn, 'DOF': setOff
+    }
 
 
 class CallBackServer(BaseHTTPRequestHandler):
