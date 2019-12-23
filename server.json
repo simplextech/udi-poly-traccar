@@ -1,0 +1,24 @@
+{
+    "name": "Traccar",
+    "docs": "https://github.com/simplextech/udi-poly-traccar",
+    "type": "python3",
+    "executable": "traccar-poly.py",
+    "install": "install.sh",
+    "install_cloud": "install_cloud.sh",
+    "description": "Integrates Traccar GPS tracking as a NodeServer",
+    "notice": "Beta",
+    "shortPoll": "60",
+    "longPoll": "600",
+    "testMode": true,
+    "httpsIngress": true,
+    "credits": [
+        {
+            "title": "Traccar: a NodeServer for Traccar GPS tracking system",
+            "author": "Simplex Technology",
+            "version": "0.0.10",
+            "date": "February 27, 2019",
+            "source": "https://github.com/simplextech/udi-poly-traccar",
+            "license": "https://github.com/simplextech/udi-poly-traccar/blob/master/LICENSE"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+<editors>
+    <!-- Boolean -->
+    <editor id="bool">
+        <range uom="2" subset="0,1"/>
+    </editor>
+
+    <editor id="GEOFENCE">
+        <range uom="25" subset="0-50" nls="GEOFENCE-NAME"/>
+    </editor>
+
+</editors>
+
