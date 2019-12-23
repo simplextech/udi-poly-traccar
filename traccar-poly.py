@@ -66,7 +66,7 @@ class Controller(polyinterface.Controller):
             self.ingress = self.poly.init['netInfo']['httpsIngress']
             # self.addCustomParam({'ingress_url': self.ingress})
             self.addNotice({'traccarIngress': self.ingress})
-            
+
             # Start the CallBackServer
             httpd = HTTPServer(('0.0.0.0', 3000), CallBackServer)
             httpd.serve_forever()
@@ -248,7 +248,7 @@ class Controller(polyinterface.Controller):
 
         if 'position' in event_data:
             device_id = str(event_data['event']['deviceId'])
-            speed = event_data['position']['speed']
+            speed = round(event_data['position']['speed'], 2)
             self.nodes[device_id].setDriver('SPEED', speed)
 
     id = 'controller'
