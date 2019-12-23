@@ -54,8 +54,6 @@ class Controller(polyinterface.Controller):
 
     def start(self):
         LOGGER.info('Started Traccar')
-
-
         self.removeNoticesAll()
         if self.check_params():
             self.discover()
