@@ -249,7 +249,7 @@ class Controller(polyinterface.Controller):
                 self.nodes[device_id].setDriver('GV0', geofence_id)
 
         if 'position' in event_data:
-            device_id = str(event_data['event']['deviceId'])
+            device_id = str(event_data['position']['deviceId'])
             speed = round(event_data['position']['speed'], 2)
             self.nodes[device_id].setDriver('SPEED', speed)
 
