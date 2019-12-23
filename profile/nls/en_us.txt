@@ -21,6 +21,3 @@ ST-TRACCAR-GV1-NAME = In Motion
 
 # Geofence Name
 GEOFENCE-NAME-0 = None
-GEOFENCE-NAME-1 = Home
-GEOFENCE-NAME-2 = Musselman High School
-GEOFENCE-NAME-3 = Target - Martinsburg
