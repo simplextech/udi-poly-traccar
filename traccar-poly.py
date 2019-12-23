@@ -63,7 +63,11 @@ class Controller(polyinterface.Controller):
             LOGGER.debug("httpsIngress: " + str(self.poly.init['netInfo']['httpsIngress']))
             LOGGER.debug("publicIp: " + self.poly.init['netInfo']['publicIp'])
             LOGGER.debug("-----------------------------------")
-            self.ingress = self.poly.init['netInfo']['httpsIngress']        # Start the CallBackServer
+            self.ingress = self.poly.init['netInfo']['httpsIngress']
+            # self.addCustomParam({'ingress_url': self.ingress})
+            self.addNotice({'traccarIngress': self.ingress})
+            
+            # Start the CallBackServer
             httpd = HTTPServer(('0.0.0.0', 3000), CallBackServer)
             httpd.serve_forever()
         else:
