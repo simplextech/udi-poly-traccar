@@ -54,7 +54,6 @@ class Controller(polyinterface.Controller):
 
     def start(self):
         LOGGER.info('Started Traccar')
-        self.removeNoticesAll()
         if self.check_params():
             self.discover()
 
@@ -147,6 +146,7 @@ class Controller(polyinterface.Controller):
 
     def check_params(self):
         st = True
+        self.remove_notices_all()
 
         default_user = "YourUserName"
         default_password = "YourPassword"
@@ -226,26 +226,27 @@ class Controller(polyinterface.Controller):
 
     def callback(self, event_data):
         # LOGGER.debug("Running Callback")
-        if event_data['event']['type'] == 'deviceOnline':
-            device_id = str(event_data['event']['deviceId'])
-            self.nodes[device_id].setDriver('ST', 1)
+        if 'event' in event_data:
+            if event_data['event']['type'] == 'deviceOnline':
+                device_id = str(event_data['event']['deviceId'])
+                self.nodes[device_id].setDriver('ST', 1)
 
-        if event_data['event']['type'] == 'deviceOffline':
-            device_id = str(event_data['event']['deviceId'])
-            self.nodes[device_id].setDriver('ST', 0)
+            if event_data['event']['type'] == 'deviceOffline':
+                device_id = str(event_data['event']['deviceId'])
+                self.nodes[device_id].setDriver('ST', 0)
 
-        if event_data['event']['type'] == 'deviceMoving':
-            device_id = str(event_data['event']['deviceId'])
-            self.nodes[device_id].setDriver('GV1', 1)
+            if event_data['event']['type'] == 'deviceMoving':
+                device_id = str(event_data['event']['deviceId'])
+                self.nodes[device_id].setDriver('GV1', 1)
 
-        if event_data['event']['type'] == 'deviceStopped':
-            device_id = str(event_data['event']['deviceId'])
-            self.nodes[device_id].setDriver('GV1', 0)
+            if event_data['event']['type'] == 'deviceStopped':
+                device_id = str(event_data['event']['deviceId'])
+                self.nodes[device_id].setDriver('GV1', 0)
 
-        if event_data['event']['type'] == 'geofenceEnter':
-            device_id = str(event_data['event']['deviceId'])
-            geofence_id = str(event_data['event']['geofenceId'])
-            self.nodes[device_id].setDriver('GV0', geofence_id)
+            if event_data['event']['type'] == 'geofenceEnter':
+                device_id = str(event_data['event']['deviceId'])
+                geofence_id = str(event_data['event']['geofenceId'])
+                self.nodes[device_id].setDriver('GV0', geofence_id)
 
         if 'position' in event_data:
             device_id = str(event_data['event']['deviceId'])
