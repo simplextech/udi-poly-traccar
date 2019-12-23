@@ -224,9 +224,7 @@ class Controller(polyinterface.Controller):
         return st
 
     def callback(self, event_data):
-        LOGGER.debug("Running Callback")
-        # pretty_event = json.dumps(event_data, indent=2)
-        # print(pretty_event)
+        # LOGGER.debug("Running Callback")
         if event_data['event']['type'] == 'deviceOnline':
             device_id = str(event_data['event']['deviceId'])
             self.nodes[device_id].setDriver('ST', 1)
@@ -246,11 +244,6 @@ class Controller(polyinterface.Controller):
         if event_data['event']['type'] == 'geofenceEnter':
             device_id = str(event_data['event']['deviceId'])
             geofence_id = str(event_data['event']['geofenceId'])
-            # print("dev id: " + str(device_id))
-            # print("geo id: " + str(geofence_id))
-            # for node in self.nodes:
-            #     print(self.nodes[node].address)
-
             self.nodes[device_id].setDriver('GV0', geofence_id)
 
         if 'position' in event_data:
@@ -263,7 +256,6 @@ class Controller(polyinterface.Controller):
         'QUERY': query,
         'DISCOVER': discover,
         'UPDATE_PROFILE': update_profile,
-        # 'REMOVE_NOTICES_ALL': remove_notices_all
     }
     drivers = [{'driver': 'ST', 'value': 1, 'uom': 2}]
 
@@ -324,7 +316,6 @@ class CallBackServer(BaseHTTPRequestHandler):
         self._set_response()
         content_length = int(self.headers['Content-Length'])
         raw_post_data = self.rfile.read(content_length)
-        # params = dict([p.split('=') for p in raw_post_data.decode('utf-8').split('&')])
         _event = json.loads(raw_post_data.decode('utf-8'))
         control.callback(_event)
 
@@ -335,11 +326,8 @@ if __name__ == "__main__":
         polyglot.start()
         control = Controller(polyglot)
         control.runForever()
-        # httpd = HTTPServer(('0.0.0.0', 5000), CallBackServer)
-        # httpd.serve_forever()
     except (KeyboardInterrupt, SystemExit):
         LOGGER.warning("Received interrupt or exit...")
-        # httpd.server_close()
     except Exception as err:
         LOGGER.error('Excption: {0}'.format(err), exc_info=True)
         polyglot.stop()
