@@ -54,20 +54,23 @@ class Controller(polyinterface.Controller):
 
     def start(self):
         LOGGER.info('Started Traccar')
-        if CLOUD:
-            LOGGER.debug("-----------------------------------")
-            LOGGER.debug("httpsIngress: " + str(self.poly.init['netInfo']['httpsIngress']))
-            LOGGER.debug("publicIp: " + self.poly.init['netInfo']['publicIp'])
-            LOGGER.debug("-----------------------------------")
-            self.ingress = self.poly.init['netInfo']['httpsIngress']
+
 
         self.removeNoticesAll()
         if self.check_params():
             self.discover()
 
-        # Start the CallBackServer
-        httpd = HTTPServer(('0.0.0.0', 5000), CallBackServer)
-        httpd.serve_forever()
+        if CLOUD:
+            LOGGER.debug("-----------------------------------")
+            LOGGER.debug("httpsIngress: " + str(self.poly.init['netInfo']['httpsIngress']))
+            LOGGER.debug("publicIp: " + self.poly.init['netInfo']['publicIp'])
+            LOGGER.debug("-----------------------------------")
+            self.ingress = self.poly.init['netInfo']['httpsIngress']        # Start the CallBackServer
+            httpd = HTTPServer(('0.0.0.0', 3000), CallBackServer)
+            httpd.serve_forever()
+        else:
+            httpd = HTTPServer(('0.0.0.0', 3180), CallBackServer)
+            httpd.serve_forever()
 
     def shortPoll(self):
         if self.disco == 1:
@@ -182,7 +185,7 @@ class Controller(polyinterface.Controller):
         # Add a notice if they need to change the user/password from the default.
         if self.user == default_user or self.password == default_password:
             self.addNotice({'myNotice':
-                            'Please set proper user and password in configuration page, and restart this nodeserver'})
+                            'Traccar access is not configure.  Please configure and restart this nodeserver'})
             st = False
 
         if st:
