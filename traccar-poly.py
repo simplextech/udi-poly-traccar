@@ -181,7 +181,8 @@ class Controller(polyinterface.Controller):
 
         # Add a notice if they need to change the user/password from the default.
         if self.user == default_user or self.password == default_password:
-            self.addNotice('Please set proper user and password in configuration page, and restart this nodeserver')
+            self.addNotice({'myNotice':
+                            'Please set proper user and password in configuration page, and restart this nodeserver'})
             st = False
 
         if st:
