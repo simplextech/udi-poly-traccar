@@ -122,8 +122,12 @@ class Controller(polyinterface.Controller):
                     _id = str(device['id'])
                     _status = device['status']
                     _name = device['name']
+
                     _geofenceIds = device['geofenceIds']
-                    _fenceId = _geofenceIds[0]
+                    if len(_geofenceIds) > 0:
+                        _fenceId = _geofenceIds[0]
+                    else:
+                        _fenceId = 0
 
                     if _status == "online":
                         _st = 1
