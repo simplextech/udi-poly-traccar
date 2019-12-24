@@ -111,7 +111,11 @@ class Controller(polyinterface.Controller):
                     self.nodes[_id].setDriver('BATLVL', _battery)
 
                     if 'ignition' in pos['attributes']:
-                        ignition = int(pos['attributes']['ignition'])
+                        _ignition = pos['attributes']['ignition']
+                        if _ignition:
+                            ignition = 100
+                        else:
+                            ignition = 0
                     else:
                         ignition = 0
                     self.nodes[_id].setDriver('GV2', ignition)
