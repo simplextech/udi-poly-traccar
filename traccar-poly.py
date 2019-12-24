@@ -252,7 +252,8 @@ class Controller(polyinterface.Controller):
         if 'position' in event_data:
             device_id = str(event_data['position']['deviceId'])
             speed = round(event_data['position']['speed'], 2)
-            course = event_data['position']['course']
+            course = round(event_data['position']['course'], 0)
+            
             if 'ignition' in event_data['position']:
                 ignition = event_data['position']['ignition']
                 if ignition:
