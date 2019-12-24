@@ -252,6 +252,7 @@ class Controller(polyinterface.Controller):
         if 'device' in event_data:
             device_id = str(event_data['device']['id'])
             device_status = str(event_data['device']['status'])
+            LOGGER.debug("Device Status: " + device_status)
             if device_status == "online":
                 val = 1
             else:
