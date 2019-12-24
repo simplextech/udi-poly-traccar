@@ -272,6 +272,18 @@ class Controller(polyinterface.Controller):
                     val = 0
                 self.nodes[device_id].setDriver('GV2', val)
 
+            if 'batteryLevel' in event_data['position']['attributes']:
+                battery = event_data['position']['attributes']['batteryLevel']
+                self.nodes[device_id].setDriver('BATLVL', battery)
+
+            if 'motion' in event_data['position']['attributes']:
+                motion = event_data['position']['attributes']['motion']
+                if motion:
+                    val = 1
+                else:
+                    val = 0
+                self.nodes[device_id].setDriver('GV1', val)
+
             self.nodes[device_id].setDriver('SPEED', speed)
             self.nodes[device_id].setDriver('WINDDIR', course)
 
