@@ -8,7 +8,7 @@
         <range uom="25" subset="0-50" nls="GEOFENCE-NAME"/>
     </editor>
 
-    <editor id="COURSE)">
+    <editor id="COURSE">
 		<range uom="25" subset="0-16" nls="COURSE"/>
 	</editor>
 
