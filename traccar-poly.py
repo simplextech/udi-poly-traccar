@@ -146,11 +146,15 @@ class Controller(polyinterface.Controller):
 
                     if 'batteryLevel' in pos['attributes']:
                         _battery = int(pos['attributes']['batteryLevel'])
-                        self.nodes[_id].setDriver('BATLVL', _battery)
+                    else:
+                        _battery = 0
+                    self.nodes[_id].setDriver('BATLVL', _battery)
 
                     if 'ignition' in pos['attributes']:
                         ignition = int(pos['attributes']['ignition'])
-                        self.nodes[_id].setDriver('GV2', ignition)
+                    else:
+                        ignition = 0
+                    self.nodes[_id].setDriver('GV2', ignition)
 
                     if 'motion' in pos['attributes']:
                         _motion = pos['attributes']['motion']
@@ -158,16 +162,22 @@ class Controller(polyinterface.Controller):
                             _motion = 1
                         else:
                             _motion = 0
-                        self.nodes[_id].setDriver('GV1', _motion)
+                    else:
+                        _motion = 0
+                    self.nodes[_id].setDriver('GV1', _motion)
 
                     if 'speed' in pos:
                         _speed = int(pos['speed'])
-                        self.nodes[_id].setDriver('SPEED', _speed)
+                    else:
+                        _speed = 0
+                    self.nodes[_id].setDriver('SPEED', _speed)
 
                     if 'course' in pos:
                         _course = round(pos['course'], 2)
                         val = cardinal_direction(_course)
-                        self.nodes[_id].setDriver('GV3', val)
+                    else:
+                        val = 0
+                    self.nodes[_id].setDriver('GV3', val)
 
     def longPoll(self):
         pass
