@@ -254,16 +254,6 @@ class Controller(polyinterface.Controller):
                 # geofence_id = str(event_data['event']['geofenceId'])
                 self.nodes[device_id].setDriver('GV0', 0)
 
-        # if 'device' in event_data:
-        #     device_id = str(event_data['device']['id'])
-        #     device_status = str(event_data['device']['status'])
-        #     LOGGER.debug("Device Status: " + device_status)
-        #     if device_status == "online":
-        #         val = 1
-        #     else:
-        #         val = 0
-        #     self.nodes[device_id].setDriver('ST', val)
-
         if 'position' in event_data:
             device_id = str(event_data['position']['deviceId'])
             speed = round(event_data['position']['speed'], 2)
