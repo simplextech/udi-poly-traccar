@@ -20,7 +20,8 @@ will need to know your Traccar Server information
 
 ## Basic Functions
 * The Nodeserver by default will poll the Traccar server every 1 minute to get updated
-device and position information.
+device and position information.  This can be changed via shortPoll option.
+
 * Geofences are pulled from the Traccar server and the profile is auto created with
 the proper names.  If you add a Geofence to Traccar you will need to upload the profile
 and restart the Admin Console.  The upload profile button is in the primary Traccar node.
@@ -49,39 +50,4 @@ There are a lot more possible status values available.  If there's something you
 a issue requesting it and provide use case example for use to present via the nodeserver.
 
 ## Advanced Configuration
-Changes made to entries in the traccar.xml file require the Traccar server to be restarted
-for the changes to take effect.
-
-The Advanced configuration provides near real-time updating from Traccar to the Nodeserver.  The Traccar server
-must be able to communicate with Polyglot for this to work.
-
-### Traccar events
-The following can be added to enable sending of events directly to the nodeserver.
-
-* conf/traccar.xml
-~~~
-<entry key='event.enable'>true</entry>
-<entry key='forward.json'>true</entry>
-<entry key='event.forward.enable'>true</entry>
-<entry key='event.forward.url'>http://localhost:3180</entry>
-~~~
-The 'event.forward.url' must be changed to use your IP or DNS name pointing to your Polyglot installation.
-* For local Polyglot leave the port as 3180
-* For Polyglot Cloud Use the URL provided in the Nodeserver Notice
-
-### Traccar positions
-The following enables Traccar to send position data to the nodeserver.
-This can be a lot of data depending on the following factors so you may wan to consider the "need" for this.
-* How many devices do you have in Traccar?
-* How often are they set to report?  Every minute or every 5 seconds???
-
-Enable by editing:
-* conf/traccar.xml
-~~~
-<entry key='forward.enable'>true</entry>
-<entry key='forward.json'>true</entry>
-<entry key='forward.url'>http://localhost:3180/event</entry>
-~~~
-The 'forward.url' must be changed to use your IP or DNS name pointing to your Polyglot installation.
-* For local Polyglot leave the port as 3180
-* For Polyglot Cloud Use the URL provided in the Nodeserver Notice
+Full documentation on Github [udi-poly-traccar](https://github.com/simplextech/udi-poly-traccar)
