@@ -9,13 +9,13 @@
     "notice": "Beta",
     "shortPoll": "60",
     "longPoll": "600",
-    "testMode": true,
+    "testMode": false,
     "httpsIngress": true,
     "credits": [
         {
             "title": "Traccar: a NodeServer for Traccar GPS tracking system",
             "author": "Simplex Technology",
-            "version": "0.0.12",
+            "version": "0.1.12",
             "date": "February 27, 2019",
             "source": "https://github.com/simplextech/udi-poly-traccar",
             "license": "https://github.com/simplextech/udi-poly-traccar/blob/master/LICENSE"
