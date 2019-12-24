@@ -249,20 +249,32 @@ class Controller(polyinterface.Controller):
                 geofence_id = str(event_data['event']['geofenceId'])
                 self.nodes[device_id].setDriver('GV0', geofence_id)
 
-        if 'device' in event_data:
-            device_id = str(event_data['device']['id'])
-            device_status = str(event_data['device']['status'])
-            LOGGER.debug("Device Status: " + device_status)
-            if device_status == "online":
-                val = 1
-            else:
-                val = 0
-            self.nodes[device_id].setDriver('ST', val)
+            if event_data['event']['type'] == 'geofenceExit':
+                device_id = str(event_data['event']['deviceId'])
+                # geofence_id = str(event_data['event']['geofenceId'])
+                self.nodes[device_id].setDriver('GV0', 0)
+
+        # if 'device' in event_data:
+        #     device_id = str(event_data['device']['id'])
+        #     device_status = str(event_data['device']['status'])
+        #     LOGGER.debug("Device Status: " + device_status)
+        #     if device_status == "online":
+        #         val = 1
+        #     else:
+        #         val = 0
+        #     self.nodes[device_id].setDriver('ST', val)
 
         if 'position' in event_data:
             device_id = str(event_data['position']['deviceId'])
             speed = round(event_data['position']['speed'], 2)
             course = round(event_data['position']['course'], 0)
+            _status = str(event_data['device']['status'])
+
+            if _status == "online":
+                val = 1
+            else:
+                val = 0
+            self.nodes[device_id].setDriver('ST', val)
 
             if 'ignition' in event_data['position']['attributes']:
                 ignition = event_data['position']['attributes']['ignition']
