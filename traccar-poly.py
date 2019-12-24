@@ -274,11 +274,15 @@ class Controller(polyinterface.Controller):
 
         if 'position' in event_data:
             device_id = str(event_data['position']['deviceId'])
+
             speed = round(event_data['position']['speed'], 2)
+            self.nodes[device_id].setDriver('SPEED', speed)
+
             _course = round(event_data['position']['course'], 2)
             course = utils.cardinal_direction(_course)
-            _status = str(event_data['device']['status'])
+            self.nodes[device_id].setDriver('GV3', course)
 
+            _status = str(event_data['device']['status'])
             if _status == "online":
                 val = 1
             else:
@@ -304,9 +308,6 @@ class Controller(polyinterface.Controller):
                 else:
                     val = 0
                 self.nodes[device_id].setDriver('GV1', val)
-
-            self.nodes[device_id].setDriver('SPEED', speed)
-            self.nodes[device_id].setDriver('GV3', course)
 
     id = 'controller'
     commands = {
