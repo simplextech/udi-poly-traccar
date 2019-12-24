@@ -75,51 +75,55 @@ class Controller(polyinterface.Controller):
 
     def shortPoll(self):
         pass
-        # if self.disco == 1:
-        #     # LOGGER.info('Running Short Poll')
-        #     units = self.get_devices()
-        #     for unit in units:
-        #         _id = str(unit['id'])
-        #         _status = unit['status']
-        #         _name = unit['name']
-        #         _geofenceIds = unit['geofenceIds']
-        #         _fenceId = 0
-        #         _st = 0
-        #
-        #         if _status == "online":
-        #             _st = 1
-        #         elif _status == "offline":
-        #             _st = 0
-        #         elif _status == "unknown":
-        #             _st = 0
-        #
-        #         if len(_geofenceIds) > 0:
-        #             _fenceId = _geofenceIds[0]
-        #             # _fence = str(_fenceId)
-        #
-        #         self.nodes[_id].setDriver('ST', _st)
-        #         self.nodes[_id].setDriver('GV0', _fenceId)
-        #
-        #     positions = self.get_positions()
-        #     for pos in positions:
-        #         _id = str(pos['deviceId'])
-        #         _motion = None
-        #
-        #         if 'batteryLevel' in pos['attributes']:
-        #             _battery = int(pos['attributes']['batteryLevel'])
-        #             self.nodes[_id].setDriver('BATLVL', _battery)
-        #
-        #         if 'motion' in pos['attributes']:
-        #             _motion = pos['attributes']['motion']
-        #             if _motion:
-        #                 _motion = 1
-        #             else:
-        #                 _motion = 0
-        #             self.nodes[_id].setDriver('GV1', _motion)
-        #
-        #         if 'speed' in pos:
-        #             _speed = int(pos['speed'])
-        #             self.nodes[_id].setDriver('SPEED', _speed)
+        if self.disco == 1:
+            # LOGGER.info('Running Short Poll')
+            devices = self.get_devices()
+            if devices is not None:
+                for device in devices:
+                    _id = str(device['id'])
+                    _status = device['status']
+                    _name = device['name']
+                    _geofenceIds = device['geofenceIds']
+                    _fenceId = _geofenceIds[0]
+
+                    if _status == "online":
+                        _st = 1
+                    elif _status == "offline":
+                        _st = 0
+                    else:
+                        _st = 0
+
+                    self.nodes[_id].setDriver('ST', _st)
+                    self.nodes[_id].setDriver('GV0', _fenceId)
+
+            positions = self.get_positions()
+            if positions is not None:
+                for pos in positions:
+                    _id = str(pos['deviceId'])
+
+                    if 'batteryLevel' in pos['attributes']:
+                        _battery = int(pos['attributes']['batteryLevel'])
+                        self.nodes[_id].setDriver('BATLVL', _battery)
+
+                    if 'ignition' in pos['attributes']:
+                        ignition = int(pos['attributes']['ignition'])
+                        self.nodes[_id].setDriver('GV2', ignition)
+
+                    if 'motion' in pos['attributes']:
+                        _motion = pos['attributes']['motion']
+                        if _motion:
+                            _motion = 1
+                        else:
+                            _motion = 0
+                        self.nodes[_id].setDriver('GV1', _motion)
+
+                    if 'speed' in pos:
+                        _speed = int(pos['speed'])
+                        self.nodes[_id].setDriver('SPEED', _speed)
+
+                    if 'course' in pos:
+                        _course = round(pos['course'], 0)
+                        self.nodes[_id].setDriver('WINDDIR', _course)
 
     def longPoll(self):
         pass
