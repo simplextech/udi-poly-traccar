@@ -112,9 +112,8 @@ class Controller(polyinterface.Controller):
             httpd.serve_forever()
 
     def shortPoll(self):
-        pass
+        # LOGGER.info('Running Short Poll')
         if self.disco == 1:
-            # LOGGER.info('Running Short Poll')
             devices = self.get_devices()
             if devices is not None:
                 for device in devices:
