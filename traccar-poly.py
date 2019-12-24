@@ -251,7 +251,17 @@ class Controller(polyinterface.Controller):
         if 'position' in event_data:
             device_id = str(event_data['position']['deviceId'])
             speed = round(event_data['position']['speed'], 2)
+            course = event_data['position']['course']
+            if 'ignition' in event_data['position']:
+                ignition = event_data['position']['ignition']
+                if ignition:
+                    val = 100
+                else:
+                    val = 0
+                self.nodes[device_id].setDriver('GV2', val)
+
             self.nodes[device_id].setDriver('SPEED', speed)
+            self.nodes[device_id].setDriver('WINDDIR', course)
 
     id = 'controller'
     commands = {
@@ -280,18 +290,21 @@ class TraccarNode(polyinterface.Node):
 
     '''
     ST:     Online
-    GV0:    Geofence
-    GV1:    In Motion
     BATLVL: Battery (mobile app)
     SPEED:  Vehicle/Tracker Speed
+    GV0:    Geofence
+    GV1:    In Motion
+    GV2:    Ignition
     '''
 
     drivers = [
         {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'GV0', 'value': 0, 'uom': 25},
         {'driver': 'BATLVL', 'value': 0, 'uom': 51},
         {'driver': 'SPEED', 'value': 0, 'uom': 48},
-        {'driver': 'GV1', 'value': 0, 'uom': 2}
+        {'driver': 'WINDDIR', 'value': 0, 'uom': 76},
+        {'driver': 'GV0', 'value': 0, 'uom': 25},
+        {'driver': 'GV1', 'value': 0, 'uom': 2},
+        {'driver': 'GV2', 'value': 0, 'uom': 78}
     ]
 
     id = 'TRACCAR'
