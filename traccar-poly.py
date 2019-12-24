@@ -131,12 +131,13 @@ class Controller(polyinterface.Controller):
 
     def discover(self, *args, **kwargs):
         units = self.get_devices()
-        for unit in units:
-            LOGGER.info("Adding: " + str(unit['id']) + ": " + unit['name'])
-            self.addNode(TraccarNode(self, self.address, str(unit['id']).lower(), unit['name']))
+        if units is not None:
+            for unit in units:
+                LOGGER.info("Adding: " + str(unit['id']) + ": " + unit['name'])
+                self.addNode(TraccarNode(self, self.address, str(unit['id']).lower(), unit['name']))
 
-        self.update_profile(self)
-        self.disco = 1
+            self.update_profile(self)
+            self.disco = 1
 
     def delete(self):
         LOGGER.info('Removing Traccar Nodeserver')
