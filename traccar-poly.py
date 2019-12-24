@@ -273,7 +273,6 @@ class Controller(polyinterface.Controller):
 
             if event_data['event']['type'] == 'geofenceExit':
                 device_id = str(event_data['event']['deviceId'])
-                # geofence_id = str(event_data['event']['geofenceId'])
                 self.nodes[device_id].setDriver('GV0', 0)
 
         if 'position' in event_data:
