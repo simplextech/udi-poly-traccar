@@ -206,24 +206,24 @@ class Controller(polyinterface.Controller):
 
         file_input = 'profile/nls/en_us.txt'
         geofences = self.get_geofences()
+        if geofences is not None:
+            # Remove GEOFENCE-NAME Entries
+            for line in fileinput.input(file_input, inplace=True, backup='.bak'):
+                if re.match(r'^GEOFENCE-NAME-\d+\s=\s\w+.+', line):
+                    pass
+                else:
+                    print(line.rstrip())
 
-        # Remove GEOFENCE-NAME Entries
-        for line in fileinput.input(file_input, inplace=True, backup='.bak'):
-            if re.match(r'^GEOFENCE-NAME-\d+\s=\s\w+.+', line):
-                pass
-            else:
-                print(line.rstrip())
+            # Add new GEOFENCE-NAME Entries
+            nls_file = open(file_input, "a")
+            nls_file.write("GEOFENCE-NAME-0 = None" + "\n")
+            for fence in geofences:
+                nls_file.write("GEOFENCE-NAME-" + str(fence['id']) + " = " + fence['name'] + "\n")
 
-        # Add new GEOFENCE-NAME Entries
-        nls_file = open(file_input, "a")
-        nls_file.write("GEOFENCE-NAME-0 = None" + "\n")
-        for fence in geofences:
-            nls_file.write("GEOFENCE-NAME-" + str(fence['id']) + " = " + fence['name'] + "\n")
+            nls_file.close()
 
-        nls_file.close()
-
-        st = self.poly.installprofile()
-        return st
+            st = self.poly.installprofile()
+            return st
 
     def callback(self, event_data):
         # LOGGER.debug("Running Callback")
