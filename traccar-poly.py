@@ -70,25 +70,25 @@ class Controller(polyinterface.Controller):
         self.ingress = None
         self.session = requests.Session()
 
-    def traccarConnect(self, api_method):
+    def traccar_connect(self, api_method):
         try:
-            api_url = "http://" + self.traccar_host + ":" + self.traccar_port + "/api/" + api_method
-            r = self.session.get(api_url, auth=(self.user, self.password))
-            api_data = r.json()
-            return api_data
+            url = "http://" + self.traccar_host + ":" + self.traccar_port + "/api/" + api_method
+            r = self.session.get(url, auth=(self.user, self.password))
+            data = r.json()
+            return data
         except Exception as ex:
             LOGGER.error('Exception in connecting to Traccar server: ' + str(ex))
 
     def get_devices(self):
-        devices = self.traccarConnect('devices')
+        devices = self.traccar_connect('devices')
         return devices
 
     def get_geofences(self):
-        geofences = self.traccarConnect('geofences')
+        geofences = self.traccar_connect('geofences')
         return geofences
 
     def get_positions(self):
-        positions = self.traccarConnect('positions')
+        positions = self.traccar_connect('positions')
         return positions
 
     def start(self):
