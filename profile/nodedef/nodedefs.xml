@@ -34,7 +34,7 @@
             <st id="SPEED" editor="_48_1" />
             <st id="GV0" editor="GEOFENCE" />
             <st id="GV1" editor="bool" />
-            <st id="GV2" editor="_78_0" />
+            <st id="GV2" editor="bool" />
             <st id="GV3" editor="COURSE" />
         </sts>
         <cmds>

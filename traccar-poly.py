@@ -113,7 +113,7 @@ class Controller(polyinterface.Controller):
                     if 'ignition' in pos['attributes']:
                         _ignition = pos['attributes']['ignition']
                         if _ignition:
-                            ignition = 100
+                            ignition = 1
                         else:
                             ignition = 0
                     else:
@@ -295,7 +295,7 @@ class Controller(polyinterface.Controller):
             if 'ignition' in event_data['position']['attributes']:
                 ignition = event_data['position']['attributes']['ignition']
                 if ignition:
-                    val = 100
+                    val = 1
                 else:
                     val = 0
                 self.nodes[device_id].setDriver('GV2', val)
@@ -353,7 +353,7 @@ class TraccarNode(polyinterface.Node):
         {'driver': 'SPEED', 'value': 0, 'uom': 48},
         {'driver': 'GV0', 'value': 0, 'uom': 25},
         {'driver': 'GV1', 'value': 0, 'uom': 2},
-        {'driver': 'GV2', 'value': 0, 'uom': 78},
+        {'driver': 'GV2', 'value': 0, 'uom': 2},
         {'driver': 'GV3', 'value': 0, 'uom': 25},
     ]
 
