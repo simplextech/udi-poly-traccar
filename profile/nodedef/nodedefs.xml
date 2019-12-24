@@ -20,22 +20,22 @@
 <!--    ST:     Online-->
 <!--    BATLVL: Battery (mobile app)-->
 <!--    SPEED:  Vehicle/Tracker Speed-->
-<!--    WINDDIR: Course-->
 <!--    GV0:    Geofence-->
 <!--    GV1:    In Motion-->
 <!--    GV2:    Ingnition-->
-<!-- Traccar Node -->
+<!--    GV3: Course-->
 
+    <!-- Traccar Node -->
     <nodeDef id="TRACCAR" nls="TRACCAR">
         <editors />
         <sts>
             <st id="ST" editor="bool" />
             <st id="BATLVL" editor="_51_1" />
             <st id="SPEED" editor="_48_1" />
-            <st id="WINDDIR" editor="_76_0" />
             <st id="GV0" editor="GEOFENCE" />
             <st id="GV1" editor="bool" />
             <st id="GV2" editor="_78_0" />
+            <st id="GV3" editor="COURSE" />
         </sts>
         <cmds>
             <sends />

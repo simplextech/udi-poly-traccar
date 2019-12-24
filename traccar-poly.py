@@ -19,6 +19,45 @@ import json
 LOGGER = polyinterface.LOGGER
 
 
+def cardinal_direction(course):
+    # Returns the Cardinal Direction Name
+    if 0 <= course <= 11.24:
+        return 1
+    elif 11.25 <= course <= 33.74:
+        return 2
+    elif 33.75 <= course <= 56.24:
+        return 3
+    elif 56.25 <= course <= 78.74:
+        return 4
+    elif 78.75 <= course <= 101.24:
+        return 5
+    elif 101.25 <= course <= 123.74:
+        return 6
+    elif 123.75 <= course <= 146.24:
+        return 7
+    elif 146.25 <= course <= 168.74:
+        return 8
+    elif 168.75 <= course <= 191.24:
+        return 9
+    elif 191.25 <= course <= 213.74:
+        return 10
+    elif 213.75 <= course <= 236.24:
+        return 11
+    elif 236.25 <= course <= 258.74:
+        return 12
+    elif 258.75 <= course <= 281.24:
+        return 13
+    elif 281.25 <= course <= 303.74:
+        return 14
+    elif 303.75 <= course <= 326.24:
+        return 15
+    elif 326.25 <= course <= 348.74:
+        return 16
+    elif 348.75 <= course <= 360:
+        return 1
+    else:
+        return 0
+
 class Controller(polyinterface.Controller):
     def __init__(self, polyglot):
         super(Controller, self).__init__(polyglot)
@@ -122,8 +161,9 @@ class Controller(polyinterface.Controller):
                         self.nodes[_id].setDriver('SPEED', _speed)
 
                     if 'course' in pos:
-                        _course = round(pos['course'], 0)
-                        self.nodes[_id].setDriver('WINDDIR', _course)
+                        _course = round(pos['course'], 2)
+                        val = cardinal_direction(_course)
+                        self.nodes[_id].setDriver('GV3', val)
 
     def longPoll(self):
         pass
@@ -261,7 +301,8 @@ class Controller(polyinterface.Controller):
         if 'position' in event_data:
             device_id = str(event_data['position']['deviceId'])
             speed = round(event_data['position']['speed'], 2)
-            course = round(event_data['position']['course'], 0)
+            _course = round(event_data['position']['course'], 2)
+            course = cardinal_direction(_course)
             _status = str(event_data['device']['status'])
 
             if _status == "online":
@@ -291,7 +332,7 @@ class Controller(polyinterface.Controller):
                 self.nodes[device_id].setDriver('GV1', val)
 
             self.nodes[device_id].setDriver('SPEED', speed)
-            self.nodes[device_id].setDriver('WINDDIR', course)
+            self.nodes[device_id].setDriver('GV3', course)
 
     id = 'controller'
     commands = {
@@ -325,16 +366,17 @@ class TraccarNode(polyinterface.Node):
     GV0:    Geofence
     GV1:    In Motion
     GV2:    Ignition
+    GV3:    Course/Direction
     '''
 
     drivers = [
         {'driver': 'ST', 'value': 0, 'uom': 2},
         {'driver': 'BATLVL', 'value': 0, 'uom': 51},
         {'driver': 'SPEED', 'value': 0, 'uom': 48},
-        {'driver': 'WINDDIR', 'value': 0, 'uom': 76},
         {'driver': 'GV0', 'value': 0, 'uom': 25},
         {'driver': 'GV1', 'value': 0, 'uom': 2},
-        {'driver': 'GV2', 'value': 0, 'uom': 78}
+        {'driver': 'GV2', 'value': 0, 'uom': 78},
+        {'driver': 'GV3', 'value': 0, 'uom': 25},
     ]
 
     id = 'TRACCAR'

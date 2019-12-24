@@ -7,6 +7,25 @@ CMD-ctl-UPDATE_PROFILE-NAME = Update Profile
 #CMD-ctl-REMOVE_NOTICES_ALL-NAME = Remove Notices
 ST-ctl-ST-NAME = NodeServer Online
 
+# cardinal directions
+COURSE-0 = N/A
+COURSE-1 = North
+COURSE-2 = North-Northeast
+COURSE-3 = Northeast
+COURSE-4 = East-Northeast
+COURSE-5 = East
+COURSE-6 = East-Southeast
+COURSE-7 = Southeast
+COURSE-8 = South-Southeast
+COURSE-9 = South
+COURSE-10 = South-Southwest
+COURSE-11 = Southwest
+COURSE-12 = West-Southwest
+COURSE-13 = West
+COURSE-14 = West-Northwest
+COURSE-15 = Northwest
+COURSE-16 = North-Northwest
+
 # TRACCAR Node
 ND-TRACCAR-NAME = Traccar Node
 ND-TRACCAR-ICON = Input
@@ -15,10 +34,9 @@ ST-TRACCAR-ST-NAME = Online
 ST-TRACCAR-GV0-NAME = Geofence
 ST-TRACCAR-BATLVL-NAME = Battery Level
 ST-TRACCAR-SPEED-NAME = Speed
-ST-TRACCAR-WINDDIR-NAME = Course
 ST-TRACCAR-GV1-NAME = In Motion
 ST-TRACCAR-GV2-NAME = Ignition
-#ST-TRACCAR-GV3-NAME = Longitude
+ST-TRACCAR-GV3-NAME = Course
 
 # Geofence Name
 GEOFENCE-NAME-0 = None
