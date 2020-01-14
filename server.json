@@ -9,7 +9,7 @@
     "notice": "Beta",
     "shortPoll": "60",
     "longPoll": "600",
-    "testMode": false,
+    "testMode": true,
     "httpsIngress": true,
     "credits": [
         {
